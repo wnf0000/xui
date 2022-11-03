@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>用户登录</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <script src="js/bootstrap.bundle.js" type="text/javascript"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-image:url(img/loginbg.jpg);
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+        }
+
+            .form-signin .form-floating:focus-within {
+                z-index: 2;
+            }
+
+            .form-signin input[type="text"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+
+    </style>
+</head>
+<body class="text-center">
+    
+
+        <main class="form-signin w-100 m-auto">
+            <form>
+                <img class="mb-4" src="img/logo.png" alt="" height="57">
+                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
+                    <label for="userName">用户名</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                    <label for="password">密码：</label>
+                </div>
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> 记住密码
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="button" onclick="login()">登录</button>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+            </form>
+        </main>
+
+
+
+    
+
+    <script>
+
+        async function login() {
+            let userName = document.querySelector("#userName").value;
+            let password = document.querySelector("#password").value;
+            let message = { Controller: "LoginController", Action: "Login", Data: { userName: userName, password: password } };
+
+            var result = await window.chrome.webview.hostObjects.native.SolveMessage(JSON.stringify(message))
+            result = JSON.parse(result);
+
+            if (result.data.status) {
+                location.href = "dashboard.html";
+            }
+            else alert(result.data.message);
+        }
+    </script>
+</body>
+</html>

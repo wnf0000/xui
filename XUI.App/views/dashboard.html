@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>驾驶舱</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <script src="js/bootstrap.bundle.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div>
+        <h3>驾驶舱</h3>
+        <div>
+            <div><label>营业收入：</label><span id="income"></span></div>
+            <div><label>新客户数：</label><span id="customer"></span></div>
+            <div><label>新订单数：</label><span id="order"></span></div>
+        </div>
+
+    </div>
+
+    <script>
+
+        async function getDashboradData() {
+            let message = { Controller: "IndexController", Action: "Dashboard", Data: null };
+
+            var result = await window.chrome.webview.hostObjects.native.SolveMessage(JSON.stringify(message));
+            result = JSON.parse(result);
+
+            if (result.data.status) {
+                document.querySelector("#income").innerHTML = result.data.data.income;
+                document.querySelector("#customer").innerHTML = result.data.data.newCustomers;
+                document.querySelector("#order").innerHTML = result.data.data.newOrders;
+            }
+        }
+
+        getDashboradData();
+    </script>
+</body>
+</html>

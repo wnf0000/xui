@@ -1,0 +1,59 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>时钟</title>
+</head>
+<body>
+    <h1>当前时间：<span id="display"></span></h1>
+    <button onclick="stop()">暂停</button>
+    <button onclick="start()">继续</button>
+    <hr />
+    <button onclick="showMessageBox('MessageBox来自HostObject调用！')">调用HostObject的方法</button>
+    <button onclick="callAlertFromCSharp()">C#执行JS alert</button>
+    <button onclick="getSystemInfo()">读取系统信息</button>
+    <hr />
+    <div class="form">
+        <h3>用户登录</h3>
+        <div>
+            <div><label>用户名：<input id="userName" type="text" placeholder="请输入用户名" /></label></div>
+            <div><label>密  码：<input id="password" type="password" placeholder="请输入密码" /></label></div>
+        </div>
+        <div>
+            <button onclick="login()">登录</button>
+        </div>
+    </div>
+
+    <script>
+        window.chrome.webview.addEventListener('message', (event) => {
+            //console.log(event.data);
+            document.querySelector("#display").innerHTML = event.data;
+        });
+        function stop() {
+            window.chrome.webview.postMessage(0)
+        }
+        function start() {
+            window.chrome.webview.postMessage(1);
+        }
+
+        function showMessageBox(content) {
+            window.chrome.webview.hostObjects.native.ShowMessageBox(content);
+        }
+        function callAlertFromCSharp() {
+            window.chrome.webview.hostObjects.native.CallAlert();
+        }
+        async function getSystemInfo() {
+            var info = await window.chrome.webview.hostObjects.native.GetSystemInfo();
+            alert(info);
+        }
+
+        async function login() {
+            let userName = document.querySelector("#userName").value;
+            let password = document.querySelector("#password").value;
+            let message = { Controller: "LoginController", Action: "Login", Data: { userName: userName, password: password } };
+
+            var result = await window.chrome.webview.hostObjects.native.SolveMessage(JSON.stringify(message))
+            result = JSON.parse(result);
+            alert(result.data.message)
+        }
+    </script>
+</body>
+</html>
