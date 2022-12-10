@@ -168,3 +168,41 @@ xui.invokeAction = async function (controller, action, data) {
         }
     }
 ```
+## 常见问题
+### 怎么替换App图标？
+替换项目views目录下favicon.ico既可
+### 如何制作主题
+拷贝themes目录下子目录，修改目录名字，修改theme.json文件，主题支持图片主题和纯色主题，修改theme.json包括对象相应的属性即可
+### 如何开发新API功能
+XUI支持采用C#开发功能API，然后在View层（html网页）通过内置xui对象的invokeAction和invokeActionWithCallback方法调用。功能API通过继承Controller类来提供，
+举个例子
+```
+public class LoginController:Controller
+    {
+        public ActionResult Login(string userName, string password)
+        {
+            if (userName == "admin" && password == "admin")
+            {
+                AppContext.Instance.CurrentUser = new Core.Models.User { UserName = userName };
+
+                return ActionResult.StatusTrueResult("登录成功！");
+            }
+            else return ActionResult.StatusFalseResult("用户名或密码错误！");
+        }
+    }
+```
+然后在view层可以这样调用
+```
+async function login() {
+            let userName = document.querySelector("#userName").value;
+            let password = document.querySelector("#password").value;
+            let result =  await xui.invokeAction("LoginController","Login",{userName:userName,password:password})
+
+            if (result.data.status) {
+                location.href = "index.html";
+            }
+            else alert(result.data.message);
+        }
+```
+invokeAction和invokeActionWithCallback都是异步方法，然而invokeAction是在主线程执行，如果大量频繁调用则可能会卡界面，而invokeActionWithCallback则是子线程执行异步回调方式执行，一般不会卡界面
+## 更多问题待后续补充。。。
