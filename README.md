@@ -1,4 +1,4 @@
-# xui对象说明
+# 内置xui对象说明
 ```
 xui.invokeAction = async function (controller, action, data) {
         //调用Controller里的方法
