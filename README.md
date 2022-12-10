@@ -1,3 +1,4 @@
+### 示例程序源代码请下载[xui.sample.zip](https://raw.githubusercontent.com/wnf0000/xui/master/XUI.Sample.zip)压缩包
 # 内置xui对象说明
 ```
 xui.invokeAction = async function (controller, action, data) {
