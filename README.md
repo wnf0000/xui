@@ -1,3 +1,10 @@
+### 截屏
+![截屏](https://raw.githubusercontent.com/wnf0000/xui/master/screenshot20221210_135124.jpg)
+![截屏](https://raw.githubusercontent.com/wnf0000/xui/master/screenshot20221210_135234.jpg)
+![截屏](https://raw.githubusercontent.com/wnf0000/xui/master/screenshot20221210_135300.jpg)
+![截屏](https://raw.githubusercontent.com/wnf0000/xui/master/screenshot20221210_135327.jpg)
+![截屏](https://raw.githubusercontent.com/wnf0000/xui/master/screenshot20221210_135517.jpg)
+![截屏](https://raw.githubusercontent.com/wnf0000/xui/master/screenshot20221210_140038.jpg)
 ### 示例程序源代码请下载[xui.sample.zip](https://raw.githubusercontent.com/wnf0000/xui/master/XUI.Sample.zip)压缩包
 # 内置xui对象说明
 ```
