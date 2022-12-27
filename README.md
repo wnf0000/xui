@@ -211,5 +211,20 @@ async function login() {
             else alert(result.data.message);
         }
 ```
+##### features对象结构（用于xui.openUrl、xui.openHtml、xui.ui.setWindowFeatures等方法）
+```
+var features={
+width:1800,//窗口宽度
+height:1200,//窗口高度
+left:0,//窗口x坐标
+top:0,//窗口y坐标
+controls:true,//是否显示标题栏按钮
+mini:true,//是否显示最小化按钮
+maxi:true,//是否显示最大化按钮
+topmost:false,//是否显示置顶按钮
+close:true,//是否显示关闭按钮
+}
+```
+
 invokeAction和invokeActionWithCallback都是异步方法，然而invokeAction是在主线程执行，如果大量频繁调用则可能会卡界面，而invokeActionWithCallback则是子线程执行异步回调方式执行，一般不会卡界面
 ## 更多问题待后续补充。。。
